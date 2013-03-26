@@ -20,7 +20,8 @@
 @import <AppKit/CPTableView.j>
 @import <AppKit/CPTokenField.j>
 
-@import "File.j"
+@import "Models/Person.j"
+@import "Models/TableObject.j"
 
 WindowDidBecomeFullPlatformWindow = @"WindowDidBecomeFullPlatformWindow";
 WindowDidBecomeRegularWindow = @"WindowDidBecomeRegularWindow";
@@ -66,6 +67,7 @@ WindowDidBecomeRegularWindow = @"WindowDidBecomeRegularWindow";
     @outlet     CPArrayController   tableOneArrayController;
     @outlet     CPTableView         tableTwo;
     @outlet     CPTableView         viewBasedTable;
+    @outlet     CPArrayController   viewBasedTableArrayController;
 
     @outlet     CPPopover           thePopover;
     @outlet     CPTextField         popoverLabel;
@@ -128,9 +130,10 @@ WindowDidBecomeRegularWindow = @"WindowDidBecomeRegularWindow";
 
     var c = 500,
         items = [[CPMutableArray alloc] init];
+
     while (c--)
     {
-        var obj = [[TableModelObject alloc] init];
+        var obj = [[TableObject alloc] init];
         [obj setColumnTwo:c];
         switch (c % 3)
         {
@@ -168,6 +171,7 @@ WindowDidBecomeRegularWindow = @"WindowDidBecomeRegularWindow";
     [hudInspectorSliderZoom setTheme:[CPTheme themeNamed:@"Aristo2-HUD"]];
     [hudInspectorSliderCrop setTheme:[CPTheme themeNamed:@"Aristo2-HUD"]];
     [hudInspectorSliderSomething setTheme:[CPTheme themeNamed:@"Aristo2-HUD"]];
+
 }
 
 - (void)awakeFromCib
@@ -444,27 +448,7 @@ WindowDidBecomeRegularWindow = @"WindowDidBecomeRegularWindow";
 
 @end
 
-@implementation TableModelObject : CPObject
-{
-    CPImage     columnOne       @accessors;
-    CPNumber    columnTwo       @accessors;
-    CPString    columnThree     @accessors;
-    CPString    columnFour      @accessors;
-}
 
-- (id)init
-{
-    if (self = [super init])
-    {
-        columnOne = nil;
-        columnTwo = 2;
-        columnThree = @"Column Three";
-        columnFour = @"Column Four";
-    }
-    return self;
-}
-
-@end
 
 @implementation TableTwoDataSourceAndDelegate : CPObject
 {
@@ -538,7 +522,34 @@ WindowDidBecomeRegularWindow = @"WindowDidBecomeRegularWindow";
 
 @implementation ViewBasedTableDataSourceAndDelegate : CPObject
 {
-    @outlet     CPTableView     viewBasedTable;
+    @outlet     CPTableView         viewBasedTable;
+                CPArrayController   viewBasedTableArrayController;
+                CPArray             viewBasedTableArray;
+}
+
+- (id)init
+{
+    var self = [super init];
+
+    if (self)
+    {
+        viewBasedTableArrayController = [[CPArrayController alloc] init];
+
+        var path = [[CPBundle mainBundle] pathForResource:@"People.plist"],
+            request = [CPURLRequest requestWithURL:path],
+            connection = [CPURLConnection connectionWithRequest:request delegate:self];
+
+        [viewBasedTable bind:@"contentArray"
+                        toObject:viewBasedTableArrayController
+                        withKey:@"arrangedObjects"
+                        options:nil];
+
+        [viewBasedTable bind:@"selectionIndexes"
+                        toObject:viewBasedTableArrayController
+                        withKey:@"selectionIndexes"
+                        options:nil];
+
+    }
 }
 
 - (void)tableView:(CPTableView)aTableView viewForTableColumn:(CPTableColumn)aTableColumn row:(int)aRow
@@ -564,6 +575,27 @@ WindowDidBecomeRegularWindow = @"WindowDidBecomeRegularWindow";
 
 - (int)tableView:(CPTableView)aTableView heightOfRow:(int)aRow
 {
+}
+
+#pragma mark -
+#pragma mark CPURLConnection Delegate
+
+- (void)connection:(CPURLConnection)connection didReceiveData:(CPString)dataString
+{
+    if (!dataString)
+        return;
+
+    var data = [[CPData alloc] initWithRawString:dataString],
+        deserialized = [CPPropertyListSerialization propertyListFromData:data format:CPPropertyListXMLFormat_v1_0],
+        people = [deserialized objectForKey:@"Items"];
+
+    [people enumerateObjectsUsingBlock:function(obj, idx, stop)
+        {
+            var person = [Person initializeWithDictionary:obj];
+            [viewBasedTableArrayController addObject:person];
+        }];
+
+    console.log(viewBasedTableArrayController);
 }
 
 @end
