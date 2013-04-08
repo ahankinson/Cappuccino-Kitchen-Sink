@@ -32,6 +32,8 @@ WindowDidBecomeRegularWindow = @"WindowDidBecomeRegularWindow";
     @outlet     CPMenuItem          applicationMenu;
     @outlet     CPMenuItem          platformifyControl;
     @outlet     CPObject            menuModificationObserver;
+    @outlet     CPButton            disableControls     @accessors;
+
     // Buttons
     @outlet     CPButton            standardButton;
     @outlet     CPButton            roundButton;
@@ -49,6 +51,7 @@ WindowDidBecomeRegularWindow = @"WindowDidBecomeRegularWindow";
     @outlet     CPProgressIndicator indeterminateIndicator;
 
     @outlet     CPTokenField        aTokenField;
+    @outlet     CPStepper           aStepperField;
 
     @outlet     CPWindow            aTestingWindow;
     @outlet     CPButton            actionButton;
