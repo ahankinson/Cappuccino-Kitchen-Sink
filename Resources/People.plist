@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Items</key>
+	<array>
+		<dict>
+			<key>picture</key>
+			<dict>
+				<key>image</key>
+				<string>images/big_ben.jpg</string>
+			</dict>
+			<key>occupation</key>
+			<string>Clock Star</string>
+			<key>age</key>
+			<string>155</string>
+			<key>firstName</key>
+			<string>Big</string>
+			<key>lastName</key>
+			<string>Ben</string>
+		</dict>
+		<dict>
+			<key>picture</key>
+			<dict>
+				<key>image</key>
+				<string>images/mick_jagger.jpg</string>
+			</dict>
+			<key>age</key>
+			<integer>69</integer>
+			<key>lastName</key>
+			<string>Jagger</string>
+			<key>firstName</key>
+			<string>Mick</string>
+			<key>occupation</key>
+			<string>Rock Star</string>
+		</dict>
+		<dict>
+			<key>picture</key>
+			<dict>
+				<key>image</key>
+				<string>images/ed_the_sock.jpg</string>
+			</dict>
+			<key>age</key>
+			<string>19</string>
+			<key>lastName</key>
+			<string>the Sock</string>
+			<key>firstName</key>
+			<string>Ed</string>
+			<key>occupation</key>
+			<string>Sock Star</string>
+		</dict>
+		<dict>
+			<key>picture</key>
+			<dict>
+				<key>image</key>
+				<string>images/mercury.jpg</string>
+			</dict>
+			<key>occupation</key>
+			<string>Rock near a Star</string>
+			<key>firstName</key>
+			<string>Mercury</string>
+			<key>lastName</key>
+			<string>the Planet</string>
+			<key>age</key>
+			<string>4500000000</string>
+		</dict>
+		<dict>
+			<key>picture</key>
+			<dict>
+				<key>image</key>
+				<string>images/loch_ness.jpg</string>
+			</dict>
+			<key>age</key>
+			<string>1448</string>
+			<key>lastName</key>
+			<string>Monster</string>
+			<key>firstName</key>
+			<string>Nessie</string>
+			<key>occupation</key>
+			<string>Loch Star</string>
+		</dict>
+		<dict>
+			<key>picture</key>
+			<dict>
+				<key>image</key>
+				<string>images/lightning_mcqueen.jpg</string>
+			</dict>
+			<key>age</key>
+			<string>7</string>
+			<key>lastName</key>
+			<string>McQueen</string>
+			<key>firstName</key>
+			<string>Lightning</string>
+			<key>occupation</key>
+			<string>Stock Car</string>
+		</dict>
+	</array>
+</dict>
+</plist>
