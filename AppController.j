@@ -19,6 +19,11 @@
 @import <AppKit/CPArrayController.j>
 @import <AppKit/CPTableView.j>
 @import <AppKit/CPTokenField.j>
+@import <AppKit/CPStepper.j>
+@import <AppKit/CPPopover.j>
+@import <AppKit/CPSlider.j>
+@import <AppKit/CPOutlineView.j>
+@import <AppKit/CPAlert.j>
 
 @import "Models/Person.j"
 @import "Models/TableObject.j"
@@ -130,6 +135,7 @@ WindowDidBecomeRegularWindow = @"WindowDidBecomeRegularWindow";
     [applicationMenu setImage:menubarIcon];
     [aWebView setMainFrameURL:@"http://www.cappuccino-project.org"];
 
+    [indeterminateIndicator startAnimation:nil];
 
     var c = 500,
         items = [[CPMutableArray alloc] init];
@@ -227,7 +233,7 @@ WindowDidBecomeRegularWindow = @"WindowDidBecomeRegularWindow";
     [theOutlineView reloadData];
 }
 
-- (IBAction)launchWindowWithToolbar:(id)aSender
+- (@action)launchWindowWithToolbar:(id)aSender
 {
     [aToolbar setVisible:YES];
     console.log([aMessageToThePeople objectValue]);
@@ -249,7 +255,7 @@ WindowDidBecomeRegularWindow = @"WindowDidBecomeRegularWindow";
     }
 }
 
-- (IBAction)launchWindowWithoutToolbar:(id)aSender
+- (@action)launchWindowWithoutToolbar:(id)aSender
 {
     [aToolbar setVisible:NO];
     [aMessageToThePeople setObjectValue:@"This is a boring window, unadorned by a toolbar"];
@@ -273,7 +279,7 @@ WindowDidBecomeRegularWindow = @"WindowDidBecomeRegularWindow";
 #pragma mark -
 #pragma mark Sheet Delegate Methods
 
-- (IBAction)closeSheet:(id)aSender
+- (@action)closeSheet:(id)aSender
 {
     if ([aTestingWindow isSheet])
         [CPApp endSheet:aTestingWindow returnCode:[aSender tag]];
@@ -289,7 +295,7 @@ WindowDidBecomeRegularWindow = @"WindowDidBecomeRegularWindow";
 }
 
 
-- (IBAction)launchPlatformWindow:(id)aSender
+- (@action)launchPlatformWindow:(id)aSender
 {
     var platformWindow = [[CPPlatformWindow alloc] initWithContentRect:CGRectMake(100,100,775,400)],
         containerWindow = [[CPWindow alloc] initWithContentRect:CGRectMake(100, 100, 775, 400) styleMask:CPClosableWindowMask | CPResizableWindowMask];
@@ -301,7 +307,7 @@ WindowDidBecomeRegularWindow = @"WindowDidBecomeRegularWindow";
     [containerWindow makeKeyAndOrderFront:aSender];
 }
 
-- (IBAction)showInfoAlertWindow:(id)aSender
+- (@action)showInfoAlertWindow:(id)aSender
 {
     var alrt = [self _createAlertWindow];
     [alrt setAlertStyle:CPInformationalAlertStyle];
@@ -319,7 +325,7 @@ WindowDidBecomeRegularWindow = @"WindowDidBecomeRegularWindow";
     }
 }
 
-- (IBAction)showWarnAlertWindow:(id)aSender
+- (@action)showWarnAlertWindow:(id)aSender
 {
     var alrt = [self _createAlertWindow];
     [alrt setAlertStyle:CPWarningAlertStyle];
@@ -337,7 +343,7 @@ WindowDidBecomeRegularWindow = @"WindowDidBecomeRegularWindow";
     }
 }
 
-- (IBAction)showErrorAlertWindow:(id)aSender
+- (@action)showErrorAlertWindow:(id)aSender
 {
     var alrt = [self _createAlertWindow];
     [alrt setAlertStyle:CPCriticalAlertStyle];
@@ -462,7 +468,7 @@ WindowDidBecomeRegularWindow = @"WindowDidBecomeRegularWindow";
 {
     if (self = [super init])
     {
-        console.log("inited");
+        // console.log("inited");
     }
     return self;
 }
@@ -536,6 +542,7 @@ WindowDidBecomeRegularWindow = @"WindowDidBecomeRegularWindow";
 
     if (self)
     {
+        console.log("View based table initialized");
         viewBasedTableArrayController = [[CPArrayController alloc] init];
 
         var path = [[CPBundle mainBundle] pathForResource:@"People.plist"],
@@ -551,7 +558,6 @@ WindowDidBecomeRegularWindow = @"WindowDidBecomeRegularWindow";
                         toObject:viewBasedTableArrayController
                         withKey:@"selectionIndexes"
                         options:nil];
-
     }
 }
 
