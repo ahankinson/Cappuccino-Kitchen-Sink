@@ -2,9 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Main cib file base name</key>
-	<string>MainMenu.cib</string>
-	<key>CPBundleName</key>
-	<string>New-Cappuccino-Sample-Controls</string>
+    <key>Main cib file base name</key>
+    <string>MainMenu.cib</string>
+    <key>CPBundleName</key>
+    <string>Cappuccino-Kitchen-Sink</string>
+    <key>CPBundleVersion</key>
+    <string>1.0</string>
+    <key>CPHumanReadableCopyright</key>
+    <string>Copyright © 2014, Your Company All rights reserved.</string>
 </dict>
 </plist>
